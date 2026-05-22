@@ -142,13 +142,17 @@ app.post("/api/followup", async (req, res) => {
 app.get("/api/health", (_, res) => res.json({ status: "ok", model: "llama-3.3-70b-versatile" }));
 
 // ─── Serve Frontend ──────────────────────────────────────────────────────────
-app.use(express.static(path.join(__dirname, "../../../frontend/dist")));
+const distPath = path.join(__dirname, "../../frontend/dist")
+console.log("Dirname:", __dirname)
+console.log("Dist path:", distPath)
+
+app.use(express.static(distPath));
 
 app.get("*", (req, res) => {
   if (req.path.startsWith('/api')) {
     return res.status(404).json({ error: 'Not found' })
   }
-  res.sendFile(path.join(__dirname, "../../../frontend/dist", "index.html"));
+  res.sendFile(path.join(distPath, "index.html"));
 });
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`DebugMind backend running on port ${PORT}`));
