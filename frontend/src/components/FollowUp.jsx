@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
-const BASE = import.meta.env.VITE_API_URL || ''
+const BASE = import.meta.env.VITE_API_URL || 'https://debugmind-kj6e.onrender.com'
 
 export default function FollowUp({ result, inputData }) {
   const [messages, setMessages] = useState([])

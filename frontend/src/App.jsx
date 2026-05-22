@@ -3,7 +3,7 @@ import DebugInput from './pages/DebugInput.jsx'
 import DebugResult from './pages/DebugResult.jsx'
 import Header from './components/Header.jsx'
 
-const BASE = import.meta.env.VITE_API_URL || ''
+const BASE = import.meta.env.VITE_API_URL || 'https://debugmind-kj6e.onrender.com'
 
 export default function App() {
   const [result, setResult] = useState(null)
