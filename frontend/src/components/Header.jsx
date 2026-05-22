@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 
+const BASE = import.meta.env.VITE_API_URL || ''
+
 export default function Header() {
   const [time, setTime] = useState(new Date())
   const [status, setStatus] = useState('checking')
 
   useEffect(() => {
     const t = setInterval(() => setTime(new Date()), 1000)
-    fetch('/api/health')
+    fetch(`${BASE}/api/health`)
       .then(r => r.json())
       .then(() => setStatus('online'))
       .catch(() => setStatus('offline'))
@@ -26,7 +28,6 @@ export default function Header() {
       zIndex: 100,
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
             width: 32, height: 32,
@@ -47,7 +48,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Breadcrumb */}
         <div style={{ color: 'var(--text3)', fontSize: 11, display: 'flex', gap: 6, alignItems: 'center' }}>
           <span style={{ color: 'var(--border2)' }}>›</span>
           <span>v1.0.0</span>
@@ -57,7 +57,6 @@ export default function Header() {
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-        {/* Status */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11 }}>
           <div style={{
             width: 7, height: 7, borderRadius: '50%',
@@ -69,7 +68,6 @@ export default function Header() {
           </span>
         </div>
 
-        {/* Clock */}
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--text3)', letterSpacing: '0.05em' }}>
           {time.toLocaleTimeString('en-US', { hour12: false })}
         </div>
