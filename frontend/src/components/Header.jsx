@@ -6,9 +6,9 @@ export default function Header() {
   const [time, setTime] = useState(new Date())
   const [status, setStatus] = useState('checking')
 
-  useEffect(() => {
+useEffect(() => {
     const t = setInterval(() => setTime(new Date()), 1000)
-    fetch(`${BASE}/api/health`)
+    fetch(`https://debugmind-kj6e.onrender.com/api/health`)
       .then(r => r.json())
       .then(() => setStatus('online'))
       .catch(() => setStatus('offline'))
