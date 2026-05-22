@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 
+const BASE = import.meta.env.VITE_API_URL || ''
+
 export default function FollowUp({ result, inputData }) {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
@@ -27,7 +29,7 @@ Fix (short-term): ${result.fix?.shortTerm}
 `.trim()
 
     try {
-      const res = await fetch('/api/followup', {
+      const res = await fetch(`${BASE}/api/followup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: q, context }),
@@ -66,7 +68,7 @@ Fix (short-term): ${result.fix?.shortTerm}
         }}>
           <span style={{ fontSize: 11, color: 'var(--text3)', alignSelf: 'center', marginRight: 4 }}>Quick ask:</span>
           {suggestions.map(s => (
-            <button key={s} onClick={() => { setInput(s); }} style={{
+            <button key={s} onClick={() => setInput(s)} style={{
               padding: '5px 12px', borderRadius: 4,
               background: 'transparent', border: '1px solid var(--border2)',
               color: 'var(--text2)', fontSize: 11, transition: 'all 0.2s',
@@ -160,6 +162,7 @@ Fix (short-term): ${result.fix?.shortTerm}
           border: 'none', borderRadius: 6, color: 'var(--bg)',
           fontWeight: 700, fontSize: 13, transition: 'all 0.2s',
           opacity: (!input.trim() || loading) ? 0.5 : 1,
+          cursor: (!input.trim() || loading) ? 'not-allowed' : 'pointer',
         }}>
           Send
         </button>

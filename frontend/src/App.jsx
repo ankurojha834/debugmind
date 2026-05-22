@@ -3,6 +3,8 @@ import DebugInput from './pages/DebugInput.jsx'
 import DebugResult from './pages/DebugResult.jsx'
 import Header from './components/Header.jsx'
 
+const BASE = import.meta.env.VITE_API_URL || ''
+
 export default function App() {
   const [result, setResult] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -16,7 +18,7 @@ export default function App() {
     setInputData(formData)
 
     try {
-      const res = await fetch('/api/debug', {
+      const res = await fetch(`${BASE}/api/debug`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
