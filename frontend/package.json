@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+<<<<<<< HEAD
     "dev": "npx vite",
     "build": "npx vite build",
     "preview": "npx vite preview"
+=======
+    "dev": "vite",
+    "build": "npx vite build",
+    "preview": "vite preview"
+>>>>>>> 3104d302c0b1458a1fb6a0bb17f74b3db594bddd
   },
   "dependencies": {
     "react": "^18.3.1",
