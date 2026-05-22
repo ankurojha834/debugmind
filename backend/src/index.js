@@ -145,10 +145,11 @@ app.get("/api/health", (_, res) => res.json({ status: "ok", model: "llama-3.3-70
 app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.get("*", (req, res) => {
+  // API routes ko kabhi frontend se serve mat karo
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'Not found' })
+  }
   res.sendFile(path.join(__dirname, "../../frontend/dist", "index.html"));
 });
-
-// ─────────────────────────────────────────────────────────────────────────────
-
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`DebugMind backend running on port ${PORT}`));
