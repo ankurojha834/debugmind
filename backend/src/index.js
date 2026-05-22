@@ -2,10 +2,15 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import Groq from "groq-sdk";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(cors());
 app.use(express.json());
 
@@ -135,6 +140,15 @@ app.post("/api/followup", async (req, res) => {
 });
 
 app.get("/api/health", (_, res) => res.json({ status: "ok", model: "llama-3.3-70b-versatile" }));
+
+// ─── Serve Frontend ──────────────────────────────────────────────────────────
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist", "index.html"));
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`DebugMind backend running on port ${PORT}`));
